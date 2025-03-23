@@ -22,7 +22,7 @@ import css from "../App/App.module.less";
 
 // Spottable을 적용한 버튼
 const SpottableButton = Spottable(Link); // Link 컴포넌트를 SpottableButton으로 만듭니다.
-// NOTE: Link에 포커스(Spotlight) 기능을 추가한 커스텀 버튼 컴포넌트 -> 리모콘, 키보드로 포커스 이동 가능
+// NOTE: SpottalbeButton = Link에 포커스(Spotlight) 기능을 추가한 커스텀 버튼 컴포넌트 -> 리모콘, 키보드로 포커스 이동 가능
 // Link : react-router-dom의 Link 컴포넌트
 // Spottable : Enact에서 제공하는 고차 컴포넌트(HOC) -> 컴포넌트를 인자로 받아서 새로운 컴포넌트 반환하는 함수
 
