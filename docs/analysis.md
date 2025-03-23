@@ -15,7 +15,7 @@ npm run serve // 터미널에 입력
 http://localhost:8080/    // 웹 브라우저에 입력
 ```
 
-* [ ] 1. 서버 켜서 웹 브라우저에서 직접 확인! 
+* [x] 1. 서버 켜서 웹 브라우저에서 직접 확인! 
 
 Overview, VideoStream, Flow Check는 화면 안 나옴
 
