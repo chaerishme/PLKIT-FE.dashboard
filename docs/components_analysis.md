@@ -65,3 +65,20 @@ MainPanel 메뉴에서 Community 누르면 바로 이 컴포넌트 실행됨
 <br>
 
 ---
+
+### ChatGPTComponent.js
+OpenAI API (gpt-3.5-turbo)와 연결된 채팅 인터페이스 제공
+사용자 메시지를 입력 받아 API에 전송하고, AI 응답을 화면에 출력
+
+|기술|설명|
+|---|---|
+|React|useState, useEffect, userRef로 상태 관리 및 DOM 조작|
+|Axios|ChatGPI API 호출을 위한 HTTP 클라이언트|
+|OpenAI API|gpt-3.5-turbo 모델로 대화형 챗봇 기능 구현|
+|CSS-in-JS|컴포넌트 내에서 인라인 스타일 사용|
+
+ -OpenAI API Key .env 환경변수로 분리되어 사용 중
+<br>
+
+---
+
