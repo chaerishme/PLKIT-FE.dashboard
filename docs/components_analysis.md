@@ -40,8 +40,9 @@ import FloatingButton from "../components/FloatingButton";
 |Enact Sandstone|Enact 기반 레이아웃 UI 사용|
 |Recharts|데이터 시각화 라이브러리|
 |**Custom Hook**|**useSmartFarmData()로 스마트팜 데이터 수집**|
+<br>
 
-`import useSmartFarmData from "../hooks/useSmartFarmData";`
+`import useSmartFarmData from "../hooks/useSmartFarmData";`<bR>
 `const { data } = useSmartFarmData(); `
 : 스마트팜 관련 실시간/정적 데이터를 외부에서 받아옴.
 
@@ -51,8 +52,16 @@ import FloatingButton from "../components/FloatingButton";
 
 ### Control.js
 스마트팜 장비 및 자원 수치를 제어하는 패널 제공<br>
-스위치 / 슬라이더 / 버튼으로 다양한 기기와 수치 조작 가능
+스위치 / 슬라이더 / 버튼으로 다양한 기기와 수치 조작 가능 <br>
 대부분의 로직은 **useSmartFarmData()** 커스텀 훅에서 처리됨 (상태 및 이벤트)
+<br>
+
+---
+
+### Community.js
+외부 커뮤니티 웹페이지를 앱 내에 임베딩 (iframe) : https://test-chi-three-99.vercel.app/login <br>
+단일 iframe으로 외부 페이지 로딩하는 단순한 구조 <br>
+MainPanel 메뉴에서 Community 누르면 바로 이 컴포넌트 실행됨
 <br>
 
 ---
