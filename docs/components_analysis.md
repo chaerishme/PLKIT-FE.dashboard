@@ -49,3 +49,10 @@ import FloatingButton from "../components/FloatingButton";
 
 ---
 
+### Control.js
+스마트팜 장비 및 자원 수치를 제어하는 패널 제공<br>
+스위치 / 슬라이더 / 버튼으로 다양한 기기와 수치 조작 가능
+대부분의 로직은 **useSmartFarmData()** 커스텀 훅에서 처리됨 (상태 및 이벤트)
+<br>
+
+---
