@@ -1,16 +1,21 @@
 import React from "react"; // React를 가져옵니다
+
+// NOTE: Enact UI 컴포넌트들
 import Button from "@enact/sandstone/Button";
 import SwitchItem from "@enact/sandstone/SwitchItem";
 import Slider from "@enact/sandstone/Slider";
 import Input from "@enact/sandstone/Input";
 import Dropdown from "@enact/sandstone/Dropdown";
+
+// NOTE: 커스텀 훅으로 스마트팜 상태 및 핸들러 가져옴
 import useSmartFarmData from "../hooks/useSmartFarmData"; // 커스텀 훅 가져오기
 import styles from "../App/App.module.less"; // CSS를 module 형식으로 변경
 import FloatingButton from "./FloatingButton"; // 모달리스 버튼 가져오기
 
 const Control = () => {
+  // NOTE: 커스텀 훅으로 상태 및 조작 함수 받아옴
   // useSmartFarmData에서 필요한 데이터와 함수들을 구조 분해 할당
-  const {
+  const { // NOTE: 팬, 히터, LED on/off, 탱크 수치, 현재 수위
     fan,
     toggleFan,
     heater,
@@ -33,7 +38,9 @@ const Control = () => {
   return (
     <div>
       <h1>&nbsp;&nbsp;&nbsp;Control</h1>
+      {/* NOTE: 좌우로 나뉜 그리드 레이아웃 */}
       <div className={styles.controlGridLayout}>
+        {/* NOTE: 좌측 패널: 팬, 히터, LED 조명 */}
         <div className={styles.controlLeft}>
           <div className={styles.controlCard}>
             <h3>Fan</h3>
@@ -53,6 +60,7 @@ const Control = () => {
           </div>
         </div>
 
+      {/* NOTE: 우측 패널: 탱크 슬라이더 + 수위 조절*/}
         <div className={styles.controlRight}>
           <div className={styles.sliderContainer}>
             <div className={styles.controlCard}>
@@ -116,6 +124,7 @@ const Control = () => {
             </div>
           </div>
 
+        {/* NOTE: 수위 설정 */}
           <div className={styles.controlCard}>
             <h3>Water Level</h3>
             <Input
@@ -128,7 +137,7 @@ const Control = () => {
             />
             <div>
               <Button
-                onClick={() => handleWaterLevelChange(25)}
+                onClick={() => handleWaterLevelChange(25)}  // NOTE: 단계별 preset 버튼
                 style={{ width: "100px" }}
               >
                 1단계 (25)

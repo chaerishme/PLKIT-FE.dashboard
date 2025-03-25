@@ -21,7 +21,7 @@ Overview, VideoStream, Flow Check는 화면 안 나옴
 
 전체 tree 구조
 
-```c
+```
 PLKIT-FE.dashboard
 ├── .env                  # 환경 변수 설정 파일
 ├── .gitignore            # Git에서 제외할 파일 목록
@@ -53,13 +53,13 @@ PLKIT-FE.dashboard
 └── node_modules                    # 프로젝트 의존성 모듈
 ```
 
-* [ ] 2. 전체 화면 컴포넌트 매칭
+* [x] 2. 전체 화면 컴포넌트 매칭
 
 src/views/MainPanel.js 열어서 어떤 컴포넌트 import하는지 확인
 
 → 대시보드 구성 요소가 무엇인지 파악
 
-* [ ] 3. 1에서 확인한 화면이 어떤 컴포넌트로 이루어졌는가?
+* [x] 3. 1에서 확인한 화면이 어떤 컴포넌트로 이루어졌는가?
 
 → src/components 를 통해 주요 컴포넌트 구조 파악
 

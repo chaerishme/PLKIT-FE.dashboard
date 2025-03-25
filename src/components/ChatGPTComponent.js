@@ -1,23 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import axios from "axios";  // NOTE: HTTP 요청을 위한 axios
 
+// NOTE: ChatGPT API와 연동된 채팅 컴포넌트
 const ChatGPTComponent = () => {
+  // NOTE: 사용자 입력값 관리
   const [inputText, setInputText] = useState("");
+
+  // NOTE: 채팅 메시지 상태 관리
   const [messages, setMessages] = useState([
     { role: "system", content: "You are a helpful assistant." },
   ]);
+
+  // NOTE: API 호출 중 로딩 여부
   const [loading, setLoading] = useState(false);
 
+  // NOTE: 메시지 전송 시 자동 스크롤을 위한 ref
   const messageEndRef = useRef(null);
 
+  // NOTE: 메시지가 업데이트 될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // NOTE: 입력값 변경 핸들러
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
 
+  // NOTE: 메시지 전송 및 ChatGPT API 호출
   const sendMessage = async () => {
     if (!inputText) return;
     setLoading(true);
@@ -28,6 +38,7 @@ const ChatGPTComponent = () => {
     setInputText("");
 
     try {
+      // NOTE: ChatGPT API 호출 
       const response = await axios.post(
         "https://api.openai.com/v1/chat/completions",
         {
@@ -52,8 +63,9 @@ const ChatGPTComponent = () => {
     }
   };
 
+  // NOTE: 인라인 스타일 정의
   const styles = {
-    container: {
+    container: { /* 전체 레이아웃 스타일 */
       backgroundColor: "#1e1e1e", // 어두운 배경
       padding: "20px",
       borderRadius: "8px",
@@ -67,7 +79,7 @@ const ChatGPTComponent = () => {
       overflow: "hidden",
       color: "white",
     },
-    messageList: {
+    messageList: { /* 메시지 리스트 영역 */
       flex: 1,
       overflowY: "auto", // 스크롤 가능
       padding: "10px",
@@ -100,14 +112,14 @@ const ChatGPTComponent = () => {
       overflow: "hidden",
       whiteSpace: "pre-wrap",
     },
-    inputContainer: {
+    inputContainer: { /* 입력창 & 버튼 래퍼 */
       display: "flex",
       justifyContent: "space-between",
       padding: "10px",
       backgroundColor: "#333",
       borderRadius: "8px",
     },
-    input: {
+    input: { /* 텍스트 입력창 스타일 */
       width: "75%",
       padding: "10px",
       borderRadius: "20px",
@@ -135,6 +147,7 @@ const ChatGPTComponent = () => {
 
   return (
     <div style={styles.container}>
+      {/* === 채팅 메시지 리스트 === */}
       <div style={styles.messageList}>
         {messages.map((msg, index) => (
           <div key={index} style={styles.messageContainer}>
@@ -153,8 +166,10 @@ const ChatGPTComponent = () => {
         <div ref={messageEndRef} />
       </div>
 
+      {/* === 로딩 표시 === */}
       {loading && <p style={styles.loading}>Loading...</p>}
 
+      {/* === 입력창 + 전송 버튼 === */}
       <div style={styles.inputContainer}>
         <input
           type="text"

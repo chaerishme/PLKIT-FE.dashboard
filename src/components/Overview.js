@@ -1,11 +1,12 @@
-import React, { useRef, useState } from "react";
-import { Heading } from "@enact/sandstone/Heading";
+import React, { useRef, useState } from "react";  // NOTE: useRef, useState 훅 사용 : 컴포넌트 상태, 차트 DOM 접근용 ref 생성
+import { Heading } from "@enact/sandstone/Heading"; // NOTE: Enact 기반의 UI 컴포넌트 (Layout + Cell + Heading) 사ㅛ용
 import { Layout } from "@enact/ui/Layout";
 import { Cell as EnactCell } from "@enact/ui/Layout";
 import { Cell as RechartsCell } from "recharts";
-import useSmartFarmData from "../hooks/useSmartFarmData"; // 커스텀 훅 가져오기
+import useSmartFarmData from "../hooks/useSmartFarmData"; // NOTE: 스마트팜 데이터 가져오는 커스텀 훅
 import FloatingButton from "./FloatingButton"; // 모달리스 버튼 가져오기
 
+// NOTE: Recharts 라이브러리로 다양한 데이터 시각화 차트 구현
 import {
   LineChart,
   Line,
@@ -33,14 +34,17 @@ import PredictionTable from "./PredictionTable";
 // 유틸리티 함수 임포트
 //import { saveChartAsPDF, saveChartAsWord } from "../utils/exportChart";
 
+// === Overview 컴포넌트 ===
 const Overview = () => {
-  // useState를 컴포넌트 최상위에서 호출
-  const [tempHumSlide, setTempHumSlide] = useState(0);
-  const [illuminationSlide, setIlluminationSlide] = useState(0);
+  // useState를 컴포넌트 최상위에서 호출 
+  const [tempHumSlide, setTempHumSlide] = useState(0);  // NOTE: 컴포넌트 내부 상태 정의, 온습도 데이터 슬라이드하면서 넘길 때 사용
+  const [illuminationSlide, setIlluminationSlide] = useState(0); 
   const [tdsSlide, setTdsSlide] = useState(0);
   const [liquidTempSlide, setLiquidTempSlide] = useState(0);
 
   // 각 차트의 뷰 모드 상태 관리 ('chart' 또는 'table')
+  // NOTE: chart <-> table 전환을 위한 상태 값: 초기엔 chart로 시작, 클릭하면 table로 토글
+  // NOTE: 차트 export나 DOM 조작을 위한 ref 생성
   const [viewModes, setViewModes] = useState({
     tempHumData: "chart",
     waterLevelData: "chart",
@@ -59,16 +63,17 @@ const Overview = () => {
   };
 
   // 차트에 대한 ref 생성
-  const tempHumChartRef = useRef(null);
+  const tempHumChartRef = useRef(null); // NOTE: 차트를 pdf로 내보낼 때 DOM에 직접 접근하기 위한 ref
   const waterLevelChartRef = useRef(null);
   const illuminationChartRef = useRef(null);
   const tdsChartRef = useRef(null);
   const liquidTempChartRef = useRef(null);
   const predictionChartRef = useRef(null);
 
-  const { data } = useSmartFarmData(); // 데이터를 가져옵니다.
+  // NOTE: 커스텀 훅으로 스마트팜 데이터 불러옴
+  const { data } = useSmartFarmData(); 
 
-  if (
+  if ( // NOTE: 데이터 로딩 상태 처리
     !data ||
     !data.tempHumData ||
     !data.waterLevelData ||
@@ -90,6 +95,7 @@ const Overview = () => {
   } = data;
 
   // 데이터를 10개씩 나누기 위한 함수
+  // NOTE: 데이터가 많을 경우 슬라이드로 10개씩 나눠서 보여주기 위한 로직
   const chunkedData = (data, size) => {
     const result = [];
     for (let i = 0; i < data.length; i += size) {
@@ -113,12 +119,15 @@ const Overview = () => {
     if (slide < dataChunks.length - 1) setSlide(slide + 1);
   };
 
+  //  NOTE: 예측 데이터의 최신 값 가져오기
   const latestData = predictionData[predictionData.length - 1];
   const latestIndex = predictionData.length - 1;
 
   return (
     <div className="Overview">
+      {/* === 대시보드 레이아웃 === */}
       <h1>&nbsp;&nbsp; Overview</h1>
+      {/*NOTE: 렌더링 구조. 각각의 Cell 안에서 데이터 시각화 또는 테이블 형태로 토글 가능. Next/Prev로 화면 넘김 가능. 고정된 액션 버튼 출력*/}
       <Layout orientation="vertical" className={styles.dashboard}>
         {/* 온도 및 습도 */}
         <EnactCell>
@@ -198,7 +207,7 @@ const Overview = () => {
         </EnactCell>
 
         <div className={styles.divider}></div>
-
+        {/* 수위, 조도, TDS, 액체 온도, 예측 데이터도 동일한 패턴*/}
         {/* 수위 */}
         <EnactCell>
           <div onClick={() => toggleViewMode("waterLevelData")}>
@@ -452,6 +461,7 @@ const Overview = () => {
 
         <div className={styles.divider}></div>
       </Layout>
+      {/* === 하단 플로팅 버튼 === */}
       <FloatingButton />
     </div>
   );
