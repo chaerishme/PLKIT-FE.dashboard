@@ -57,34 +57,34 @@ PLKIT-FE.dashboard
 
 src/views/MainPanel.js 열어서 어떤 컴포넌트 import하는지 확인
 
-→ 대시보드 구성 요소가 무엇인지 파악
+    → 대시보드 구성 요소가 무엇인지 파악
 
 * [x] 3. 1에서 확인한 화면이 어떤 컴포넌트로 이루어졌는가?
 
-→ src/components 를 통해 주요 컴포넌트 구조 파악
+    → src/components 를 통해 주요 컴포넌트 구조 파악
 
-* [ ] 4. 데이터 흐름 파악 
+* [x] 4. 데이터 흐름 파악 
 
-→ src/hooks를 통해 어떤 훅을 사용하는지, fetch로 받아오는 데이터, MQTT로 들어오는 데이터를 어떤 props로 넘겨주는지 확인
+    → src/hooks를 통해 어떤 훅을 사용하는지, fetch로 받아오는 데이터, MQTT로 들어오는 데이터를 어떤 props로 넘겨주는지 확인
 
-* [ ] 5.  스타일, 에셋 체크
+* [x] 5.  스타일, 에셋 체크
 
-→ src/App/App.module.less, src/assets/
+    → src/App/App.module.less, src/assets/
 
 * [ ] 6. 부가 기능 파악 (내보내기, 유틸리티)
 
-→ src/utils/exportChart.js
+    → src/utils/exportChart.js
 
 * [ ] 7. env 환경 변수 체크
 
-→ MQTT & API 호출에 쓰이는 서버 주소 확인
+    → MQTT & API 호출에 쓰이는 서버 주소 확인
 
-.env 파일 열어서 MQTT 브로커 주소나 API 서버 주소가 어디인지 확인
+    .env 파일 열어서 MQTT 브로커 주소나 API 서버 주소가 어디인지 확인
 
 * [ ] 8. 총 정리
-- 어떤 컴포넌트가 중요했는가?
-- 데이터 흐름이 어떻게 되는가?
-- 실시간 & API 흐름 차이 (실시간은 자동으로 서버에서 push, API는 단발성으로 필요할 때만 가져옴)
+    - 어떤 컴포넌트가 중요했는가?
+    - 데이터 흐름이 어떻게 되는가?
+    - 실시간 & API 흐름 차이 (실시간은 자동으로 서버에서 push, API는 단발성으로 필요할 때만 가져옴)
 
 ## 4. 분석 결과
 
