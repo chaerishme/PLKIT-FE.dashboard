@@ -77,25 +77,27 @@
 
 ---
 
-### ✅ 주요 기능
+✅ 주요 기능
 
 | 함수명 | 설명 |
 |--------|------|
 | `saveChartAsPDF(chartRef, title)` | 차트를 PDF 문서로 저장 |
 | `saveChartAsWord(chartRef, title)` | 차트를 Word(.docx) 문서로 저장 |
-
+<br>
 ---
-
-### 📦 사용 라이브러리
+<br>
+📦 사용 라이브러리
 
 - [`html2canvas`](https://github.com/niklasvh/html2canvas): HTML DOM을 이미지로 캡처
 - [`jspdf`](https://github.com/parallax/jsPDF): PDF 생성 및 저장
 - [`docx`](https://github.com/dolanmiu/docx): Word 문서 생성
 - [`file-saver`](https://github.com/eligrey/FileSaver.js): 브라우저에서 파일 저장 처리
 
+<br>
+
 ---
 
-### 🛠️ 사용 방식
+🛠️ 사용 방식
 
 두 함수 모두 `chartRef`를 인자로 받아 해당 DOM 영역을 캡처
 
@@ -115,3 +117,40 @@ const handleSaveWord = () => {
 
 ---
 
+### 3. env 환경 변수 체크
+
+`useSmartFarmData.js` 분석을 통해 `.env` 파일이 존재하는 것으로 추정되나, 현재 프로젝트에는 공유되지 않은 상태.
+
+해당 파일에 포함되어야 할 것으로 예상되는 환경 변수 목록은 아래와 같다:
+
+```env
+# 백엔드 API 서버 주소
+REACT_APP_BASE_URL=localhost:8000
+
+# MQTT 브로커 연결 정보
+REACT_APP_MQTT_HOST=mqtt.example.com
+REACT_APP_MQTT_PORT=8883
+REACT_APP_MQTT_PROTOCOL=wss
+```
+
+<br>
+
+📌 설명
+
+	•	REACT_APP_BASE_URL: 초기 데이터를 가져오는 API 서버 주소. 현재 코드에선 fetch("http://<BASE_URL>/dummy/status/…") 형태로 사용됨.
+
+	•	REACT_APP_MQTT_HOST: MQTT 브로커 주소. 예: mqtt.plkit.io 또는 로컬 테스트용 localhost
+
+	•	REACT_APP_MQTT_PORT: 보통 1883 (mqtt), 8883 (wss) 사용됨
+
+	•	REACT_APP_MQTT_PROTOCOL: mqtt, ws, wss 중 하나. 브라우저에서 보통 wss 사용
+
+<br>
+
+🧩 참고 사항
+
+	•	.env 파일은 .gitignore에 포함되어 있으므로 Git에는 업로드되지 않음.
+
+	•	실제 배포 시에는 환경별로 .env.production, .env.development 등을 나눠 관리할 수 있음.
+    
+	•	.env 파일을 변경한 후에는 반드시 개발 서버를 재시작해야 적용됨.
