@@ -75,7 +75,7 @@ src/views/MainPanel.js 열어서 어떤 컴포넌트 import하는지 확인
 
     → src/utils/exportChart.js
 
-* [ ] 7. env 환경 변수 체크
+* [x] 7. env 환경 변수 체크
 
     → MQTT & API 호출에 쓰이는 서버 주소 확인
 
