@@ -5,6 +5,7 @@ import Control from "../components/Control";
 
 const useSmartFarmData = () => {
   const [data, setData] = useState({
+    // NOTE: 센서/예측 데이터 상태
     tempHumData: null,
     waterLevelData: null,
     illuminationData: null,
@@ -12,6 +13,8 @@ const useSmartFarmData = () => {
     liquidTempData: null,
     predictionData: null,
   });
+
+  // NOTE: 장치 상태 및 탱크 수위
   const [fan, setFan] = useState(false);
   const [heater, setHeater] = useState(false);
   const [ledLight, setLedLight] = useState(false);
@@ -22,14 +25,17 @@ const useSmartFarmData = () => {
   const [waterLevel, setWaterLevel] = useState(0);
 
   // mqttClient를 useRef로 선언
+  // NOTE: 컴포넌트 리렌더링과 무관하게 유지
   const mqttClient = useRef(null);
 
   const baseURL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
+    // NOTE: 1. 초기 데이터를 백엔드에서 fetch로 받아옴
     // 데이터를 서버로부터 불러오는 함수
     const fetchData = async () => {
       try {
+        // NOTE: 각각의 센서 API에서 JSON 데이터 받아오기
         const tempHumResponse = await fetch(
           `http://${baseURL}/dummy/status/temp_hum`
         );
@@ -58,6 +64,7 @@ const useSmartFarmData = () => {
         );
         const predictionData = await predictionResponse.json();
 
+        // NOTE: 전체 데이터를 setData에 저장
         setData({
           tempHumData,
           waterLevelData,
@@ -71,6 +78,7 @@ const useSmartFarmData = () => {
       }
     };
 
+    // NOTE: 2. MQTT 연결 설정
     // MQTT 설정
     mqttClient.current = mqtt.connect({
       host: process.env.REACT_APP_MQTT_HOST,
@@ -82,6 +90,7 @@ const useSmartFarmData = () => {
     console.log(process.env.REACT_APP_MQTT_PORT);
     console.log(process.env.REACT_APP_MQTT_PROTOCOL);
 
+    // NOTE: MQTT 수신 처리 함수 정의
     const handleMqttMessage = (topic, message) => {
       const msg = message.toString();
       // MQTT 메시지 처리 로직
@@ -90,16 +99,23 @@ const useSmartFarmData = () => {
         // MQTT 메시지 처리 로직
         const parsedMsg = JSON.parse(msg); // 메시지를 JSON 형식으로 파싱
 
+        // NOTE: 센서 데이터 전체 수신 -> 통째로 setData 갱신
         if (topic === "PLKIT/overview") {
           const receivedData = JSON.parse(msg);
           setData(receivedData);
-        } else if (topic === "PLKIT/control/fan") {
+        } 
+        
+        // NOTE: 장치 제어 관련 메시지 처리
+        else if (topic === "PLKIT/control/fan") {
           setFan(parsedMsg.command === "on");
         } else if (topic === "PLKIT/control/heater") {
           setHeater(parsedMsg.command === "on");
         } else if (topic === "PLKIT/control/Light") {
           setLedLight(parsedMsg.command === "on");
-        } else if (topic === "PLKIT/control/nutreinet_solution_pump_FE") {
+        } 
+        
+        // NOTE: 각 탱크 수위 및 물 수위
+        else if (topic === "PLKIT/control/nutreinet_solution_pump_FE") {
           setTank1(Number(msg)); // 01: nutrient solution
         } else if (topic === "PLKIT/control/Plus_water_pump_FE") {
           setTank2(Number(msg)); // 02: water plus (water)
@@ -115,6 +131,7 @@ const useSmartFarmData = () => {
       }
     };
 
+    // NOTE: 4. MQTT 연결 시 필요한 주제들 구독
     // MQTT 연결 설정
     mqttClient.current.on("connect", () => {
       console.log("MQTT Broker에 연결됨");
@@ -196,20 +213,23 @@ const useSmartFarmData = () => {
       console.error("MQTT Broker 연결 실패:", err);
     });
 
+    // NOTE: 메시지 수신 처리 연결
     mqttClient.current.on("message", (topic, message) => {
       console.log(`주제 ${topic}에서 메시지 수신: ${message.toString()}`);
       handleMqttMessage(topic, message);
     });
 
+    // NOTE: 최초 fetch 실행
     fetchData();
 
+    // NOTE: cleanup 함수 : 컴포넌트 unmount 시 MQTT 연결 해제
     return () => {
       mqttClient.current.end(); // MQTT 연결 해제
     };
   }, []);
 
+  // NOTE: 외부에서 호출 가능한 제어 함수들
   // 물탱크 수위, 팬, 히터 등의 상태 변화를 MQTT를 통해 전송
-
   const toggleFan = () => {
     const newState = !fan;
     setFan(newState);
@@ -286,6 +306,7 @@ const useSmartFarmData = () => {
     );
   };
 
+  // NOTE: 외부에서 사용할 수 있도록 값과 함수 export
   return {
     data,
     fan,
