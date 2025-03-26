@@ -75,16 +75,17 @@ src/views/MainPanel.js 열어서 어떤 컴포넌트 import하는지 확인
 
     → src/utils/exportChart.js
 
-* [x] 7. env 환경 변수 체크
+* [x]] 7. env 환경 변수 체크
 
     → MQTT & API 호출에 쓰이는 서버 주소 확인
 
     .env 파일 열어서 MQTT 브로커 주소나 API 서버 주소가 어디인지 확인
 
-* [ ] 8. 총 정리
+* [x] 8. 총 정리
     - 어떤 컴포넌트가 중요했는가?
     - 데이터 흐름이 어떻게 되는가?
     - 실시간 & API 흐름 차이 (실시간은 자동으로 서버에서 push, API는 단발성으로 필요할 때만 가져옴)
 
 ## 4. 분석 결과
 
+Notion에 기록
