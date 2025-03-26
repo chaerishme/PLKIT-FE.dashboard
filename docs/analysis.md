@@ -71,7 +71,7 @@ src/views/MainPanel.js 열어서 어떤 컴포넌트 import하는지 확인
 
     → src/App/App.module.less, src/assets/
 
-* [ ] 6. 부가 기능 파악 (내보내기, 유틸리티)
+* [x] 6. 부가 기능 파악 (내보내기, 유틸리티)
 
     → src/utils/exportChart.js
 

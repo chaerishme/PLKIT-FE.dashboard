@@ -64,7 +64,54 @@
 
 
 
-⸻
+---
 
+<br>
 
 ### 2. 부가 기능 파악 (내보내기, 유틸리티)
+**src/utils/exportChart.js**
+
+📤 차트 내보내기 기능 (`exportChart.js`)
+
+대시보드 상의 차트를 이미지로 캡처하여 PDF 또는 Word 문서로 저장할 수 있는 기능 제공
+
+---
+
+### ✅ 주요 기능
+
+| 함수명 | 설명 |
+|--------|------|
+| `saveChartAsPDF(chartRef, title)` | 차트를 PDF 문서로 저장 |
+| `saveChartAsWord(chartRef, title)` | 차트를 Word(.docx) 문서로 저장 |
+
+---
+
+### 📦 사용 라이브러리
+
+- [`html2canvas`](https://github.com/niklasvh/html2canvas): HTML DOM을 이미지로 캡처
+- [`jspdf`](https://github.com/parallax/jsPDF): PDF 생성 및 저장
+- [`docx`](https://github.com/dolanmiu/docx): Word 문서 생성
+- [`file-saver`](https://github.com/eligrey/FileSaver.js): 브라우저에서 파일 저장 처리
+
+---
+
+### 🛠️ 사용 방식
+
+두 함수 모두 `chartRef`를 인자로 받아 해당 DOM 영역을 캡처
+
+```jsx
+import { saveChartAsPDF, saveChartAsWord } from "@/utils/exportChart";
+
+const handleSavePDF = () => {
+  saveChartAsPDF(chartRef, "차트_이름");
+};
+
+const handleSaveWord = () => {
+  saveChartAsWord(chartRef, "차트_이름");
+};
+```
+
+<br>
+
+---
+
